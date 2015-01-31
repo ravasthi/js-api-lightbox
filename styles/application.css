@@ -1,0 +1,223 @@
+/*-----[ reset ]----------------------------------------------------------------
+*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
+{
+  display: block
+}
+
+body
+{
+  line-height: 1
+}
+
+ol, ul
+{
+  list-style: none
+}
+
+blockquote, q
+{
+  quotes: none
+}
+
+blockquote:before, blockquote:after, q:before, q:after
+{
+  content: '';
+  content: none;
+}
+
+table
+{
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*-----[ foundation ]-----------------------------------------------------------
+*/
+html
+{
+  box-sizing: border-box;
+}
+
+*, *:before, *:after
+{
+  box-sizing: inherit;
+}
+
+body
+{
+  padding: 24px 20px;
+  font-family: Avenir, "DejaVu Sans", "Bitstream Vera Sans", Tahoma, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+  font-weight: normal;
+}
+
+h1, h2, h3
+{
+  /* For large headings, use ligatures if available. */
+  text-rendering: optimizeLegibility;
+}
+
+h1
+{
+  font-size: 42px;
+  line-height: 48px;
+  color: #ca473b;
+}
+
+h2
+{
+  font-size: 36px;
+  line-height: 48px;
+  color: #9c8779;
+}
+
+h3
+{
+  font-size: 30px;
+  line-height: 36px;
+  color: #77a2a8;
+}
+
+h4
+{
+  font-size: 21px;
+  line-height: 30px;
+}
+
+h5
+{
+  font-size: 18px;
+  line-height: 24px;
+}
+
+h6
+{
+  font-size: 16px;
+  line-height: 24px;
+}
+
+a
+{
+  color: #1673a1;
+  transition: color 0.3s 0;
+}
+
+a:visited
+{
+  color: #4a1a2b
+}
+
+a:hover, a:active
+{
+  color: #105374
+}
+
+@media (min-width: 600px)
+{
+  body
+  {
+    padding: 48px 60px;
+  }
+}
+
+/*-----[ utilities ]------------------------------------------------------------
+*/
+.clearfix:before,
+.clearfix:after
+{
+  content: "";
+  display: table;
+}
+
+.clearfix:after
+{
+  clear: both;
+}
+
+/*-----[ lightbox ]-------------------------------------------------------------
+*/
+.page-title
+{
+  text-align: center;
+}
+
+.search-string
+{
+  color: #9c8779;
+}
+
+.lightbox
+{
+  margin: 36px auto;
+  border: 3px solid #eee;
+  border-radius: 20px;
+  padding: 24px 20px;
+}
+
+.lightbox .paging-controls
+{
+  float: right;
+}
+
+.lightbox .paging-controls .next,
+.lightbox .paging-controls .previous
+{
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.lightbox .paging-controls .previous
+{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.lightbox .title
+{
+  max-width: calc(100% - 80px); /* 30px * 2 (paging control width) + 20px (paging control margin) */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lightbox .photo
+{
+  display: block;
+  margin: 24px auto 0;
+  max-width: 100%;
+}
+
+@media (min-width: 992px)
+{
+  .lightbox
+  {
+    max-width: 80%;
+  }
+}
