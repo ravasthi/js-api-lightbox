@@ -16,9 +16,10 @@ APILightbox = {
   photos:            {},
 
   utils: {
-    ajax: function(method, url, data, callback) {
+    ajax: function(method, url, data, callback, type) {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = readystatechange;
+      xhr.responseType = type ? type : "";
       xhr.open(method, url);
       xhr.send(data && JSON.stringify(data));
 
