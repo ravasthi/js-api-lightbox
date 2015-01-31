@@ -183,8 +183,7 @@ a:hover, a:active
   float: right;
 }
 
-.lightbox .paging-controls .next,
-.lightbox .paging-controls .previous
+.lightbox .paging-controls a
 {
   display: inline-block;
   width: 30px;
@@ -212,6 +211,21 @@ a:hover, a:active
   display: block;
   margin: 24px auto 0;
   max-width: 100%;
+}
+
+@media (max-width: 599px)
+{
+  .page-title
+  {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .lightbox .title
+  {
+    font-size: 24px;
+    line-height: 30px;
+  }
 }
 
 @media (min-width: 992px)
