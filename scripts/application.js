@@ -16,6 +16,35 @@ APILightbox = {
   photos:            {},
 
   utils: {
+    hide: function(element) {
+      element.className = element.className.replace(/\sshow/i, '');
+      element.className += ' hide';
+    },
+
+    show: function(element, height) {
+      element.className = element.className.replace(/\shide/i, '');
+      element.className += ' show';
+      element.style = "height: " + height + ";";
+    },
+
+    sanitizeInput: function(string) {
+      danger = [
+        /<script[^>]*?>.*?<\/script>/gi, // Strip out javascript
+        /<style[^>]*?>.*?<\/style>/gi,   // Strip style tags
+        /<![\s\S]*?--[ \t\n\r]*>/gi,     // Strip multi-line comments
+        /<[\/\!]*?[^<>]*?>/gi            // Strip out HTML tags
+      ];
+
+      for(var i = 0; i < danger.length; i++) {
+        string = string.replace(danger[i], '');
+      }
+
+      // Also collapse multiple spaces down to one
+      string = string.replace(/\s+/, ' ');
+
+      return string;
+    },
+
     ajax: function(method, url, data, callback, type) {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = readystatechange;
@@ -85,11 +114,12 @@ APILightbox = {
     }
 
     var flickrOptions = {
-      method:   'flickr.photos.search',
-      text:     searchText ? searchText : APILightbox.searchText,
-      page:     1,
-      per_page: maxCount ? maxCount : APILightbox.maxPhotoIndex + 1,
-      media:    'photos'
+      method:       'flickr.photos.search',
+      text:         searchText ? searchText : APILightbox.searchText,
+      page:         1,
+      per_page:     maxCount ? maxCount : APILightbox.maxPhotoIndex + 1,
+      media:        'photos',
+      content_type: 1
     };
 
     flickrOptions = APILightbox.utils.buildFlickrOptions(flickrOptions);
@@ -106,16 +136,15 @@ APILightbox = {
   },
 
   populateResults: function(response) {
-    APILightbox.photos = response.photos;
-    APILightbox.showImage(0, response.photos);
-
     var searchString = document.querySelectorAll('h1 .search-string')[0];
-    var previous = document.querySelectorAll('.lightbox .paging-controls .previous')[0];
-    var next = document.querySelectorAll('.lightbox .paging-controls .next')[0];
 
-    searchString.innerText = APILightbox.searchText;
-    previous.addEventListener('click', APILightbox.showPreviousImage, false);
-    next.addEventListener('click', APILightbox.showNextImage, false);
+    if(response.photos.total * 1 > 0) {
+      APILightbox.photos = response.photos;
+      APILightbox.showImage(0, response.photos);
+      searchString.innerText = APILightbox.searchText;
+    } else {
+      searchString.innerText = "No results found.";
+    }
   },
 
   showImage: function(index) {
@@ -140,5 +169,52 @@ APILightbox = {
     if(nextIndex > APILightbox.maxPhotoIndex) nextIndex = 0;
 
     APILightbox.showImage(nextIndex);
+  },
+
+  showSearchForm: function() {
+    var searchForm = document.querySelectorAll('.search-form')[0];
+    var searchInput = document.querySelectorAll('.search-form .search-keywords')[0];
+
+    searchInput.value = '';
+    APILightbox.utils.show(searchForm, '30px');
+    searchInput.focus();
+  },
+
+  checkEnter: function(event) {
+    var characterCode = event.keyCode;
+
+    if(characterCode == 13) { // if enter key
+      APILightbox.doSearch();
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  doSearch: function() {
+    var searchForm = document.querySelectorAll('.search-form')[0];
+    var searchString = document.querySelectorAll('.page-title .search-string')[0];
+    var searchInput = document.querySelectorAll('.search-form .search-keywords')[0];
+
+    var keywords = APILightbox.utils.sanitizeInput(searchInput.value);
+    if(keywords != '' && keywords != ' ')
+    {
+      APILightbox.getImages(keywords);
+      APILightbox.utils.hide(searchForm);
+    }
+  },
+
+  initialize: function() {
+    var edit = document.querySelectorAll('.page-title .edit')[0];
+    var searchInput = document.querySelectorAll('.search-form .search-keywords')[0];
+    var search = document.querySelectorAll('.search-form .search')[0];
+    var previous = document.querySelectorAll('.lightbox .paging-controls .previous')[0];
+    var next = document.querySelectorAll('.lightbox .paging-controls .next')[0];
+
+    edit.addEventListener('click', APILightbox.showSearchForm, false);
+    searchInput.addEventListener('keypress', APILightbox.checkEnter, false);
+    search.addEventListener('click', APILightbox.doSearch, false);
+    previous.addEventListener('click', APILightbox.showPreviousImage, false);
+    next.addEventListener('click', APILightbox.showNextImage, false);
   }
 };

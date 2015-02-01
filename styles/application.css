@@ -144,6 +144,115 @@ a:hover, a:active
   }
 }
 
+/*-----[ forms ]----------------------------------------------------------------
+*/
+input::-webkit-input-placeholder
+{
+  padding-top: 3.5px;
+}
+
+input[type=email],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=url],
+select,
+textarea
+{
+  margin: 0;
+  border: 1px solid #aaa;
+  padding: 3.5px 5px;
+  background-color: white;
+  font-family: Avenir, "DejaVu Sans", "Bitstream Vera Sans", Tahoma, Verdana, sans-serif;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+input[type=email][disabled],
+input[type=password][disabled],
+input[type=search][disabled],
+input[type=tel][disabled],
+input[type=text][disabled],
+input[type=url][disabled],
+select[disabled],
+textarea[disabled]
+{
+  border-color: #c0c0c0 !important;
+  color: #c0c0c0 !important;
+  cursor: default !important;
+}
+
+input[type=submit],
+input[type=button],
+button,
+a.button
+{
+  margin: 0;
+  border-radius: 6px;
+  border: 0;
+  padding: 5px 20px;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 18px;
+  background-color: #66858a;
+  color: white;
+  transition: background-color 0.3s 0;
+  font-family: Avenir, "DejaVu Sans", "Bitstream Vera Sans", Tahoma, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+input[type=submit]:hover,
+input[type=button]:hover,
+button:hover,
+a.button:hover
+{
+  text-decoration: none
+}
+
+input[type=submit]:hover,
+input[type=button]:hover,
+button:hover,
+a.button:hover
+{
+  background-color: #6b959c
+}
+
+input[type=submit]:active,
+input[type=button]:active,
+button:active,
+a.button:active
+{
+  background-color: #6b959c
+}
+
+input[type=submit].disabled,
+input[type=submit][disabled],
+input[type=button].disabled,
+input[type=button][disabled],
+button.disabled,
+button[disabled],
+a.button.disabled,
+a.button[disabled]
+{
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  background: false;
+  cursor: default;
+  box-shadow: none;
+}
+
+input[type=submit]::-moz-focus-inner,
+input[type=button]::-moz-focus-inner,
+button::-moz-focus-inner,
+a.button::-moz-focus-inner
+{
+  padding: 0 !important;
+  margin: -1px !important;
+}
+
 /*-----[ utilities ]------------------------------------------------------------
 */
 .clearfix:before,
@@ -158,6 +267,20 @@ a:hover, a:active
   clear: both;
 }
 
+.hide
+{
+  height: 0;
+  opacity: 0;
+  transition: all 0.3s 0;
+}
+
+.show
+{
+  height: 100%;
+  opacity: 1;
+  transition: all 0.3s 0;
+}
+
 /*-----[ lightbox ]-------------------------------------------------------------
 */
 .page-title
@@ -165,9 +288,30 @@ a:hover, a:active
   text-align: center;
 }
 
+.page-title .edit
+{
+  margin-left: 10px;
+  text-decoration: none;
+  font-size: 24px;
+  line-height: 48px;
+  vertical-align: top;
+}
+
 .search-string
 {
   color: #9c8779;
+}
+
+.search-form
+{
+  margin-top: 24px;
+  text-align: center;
+}
+
+.search-form input.search-keywords
+{
+  margin-right: 10px;
+  width: 300px;
 }
 
 .lightbox
@@ -218,6 +362,11 @@ a:hover, a:active
   .page-title
   {
     font-size: 30px;
+    line-height: 36px;
+  }
+
+  .page-title .edit
+  {
     line-height: 36px;
   }
 
