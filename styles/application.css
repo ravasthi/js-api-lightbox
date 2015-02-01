@@ -370,6 +370,14 @@ a.button::-moz-focus-inner
     line-height: 36px;
   }
 
+  .search-form input.search-keywords
+  {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 12px;
+    width: 100%;
+  }
+
   .lightbox .title
   {
     font-size: 24px;
