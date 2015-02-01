@@ -24,7 +24,7 @@ APILightbox = {
     show: function(element, height) {
       element.className = element.className.replace(/\shide/i, '');
       element.className += ' show';
-      element.style = "height: " + height + ";";
+      element.style     = "height: " + height + ";";
     },
 
     sanitizeInput: function(string) {
@@ -46,9 +46,9 @@ APILightbox = {
     },
 
     ajax: function(method, url, data, callback, type) {
-      var xhr = new XMLHttpRequest();
+      var xhr                = new XMLHttpRequest();
       xhr.onreadystatechange = readystatechange;
-      xhr.responseType = type ? type : "";
+      xhr.responseType       = type ? type : "";
       xhr.open(method, url);
       xhr.send(data && JSON.stringify(data));
 
@@ -79,9 +79,9 @@ APILightbox = {
     },
 
     buildFlickrOptions: function(options) {
-      options = options ? options : {};
+      options         = options ? options : {};
 
-      options.format = 'json';
+      options.format  = 'json';
       options.api_key = APILightbox.flickrApiKey;
 
       return options;
@@ -148,8 +148,8 @@ APILightbox = {
   },
 
   showImage: function(index) {
-    var title = document.querySelectorAll('.lightbox .title')[0];
-    var image = document.querySelectorAll('.response .photo')[0];
+    var title = document.querySelectorAll('.lightbox .title')[0],
+        image = document.querySelectorAll('.response .photo')[0];
 
     APILightbox.currentPhotoIndex = index;
     photo                         = APILightbox.photos.photo[index];
@@ -172,8 +172,8 @@ APILightbox = {
   },
 
   showSearchForm: function() {
-    var searchForm = document.querySelectorAll('.search-form')[0];
-    var searchInput = document.querySelectorAll('.search-form .search-keywords')[0];
+    var searchForm  = document.querySelectorAll('.search-form')[0],
+        searchInput = document.querySelectorAll('.search-form .search-keywords')[0];
 
     searchInput.value = '';
     APILightbox.utils.show(searchForm, '30px');
@@ -192,9 +192,9 @@ APILightbox = {
   },
 
   doSearch: function() {
-    var searchForm = document.querySelectorAll('.search-form')[0];
-    var searchString = document.querySelectorAll('.page-title .search-string')[0];
-    var searchInput = document.querySelectorAll('.search-form .search-keywords')[0];
+    var searchForm   = document.querySelectorAll('.search-form')[0],
+        searchString = document.querySelectorAll('.page-title .search-string')[0],
+        searchInput  = document.querySelectorAll('.search-form .search-keywords')[0];
 
     var keywords = APILightbox.utils.sanitizeInput(searchInput.value);
     if(keywords != '' && keywords != ' ')
@@ -205,11 +205,11 @@ APILightbox = {
   },
 
   initialize: function() {
-    var edit = document.querySelectorAll('.page-title .edit')[0];
-    var searchInput = document.querySelectorAll('.search-form .search-keywords')[0];
-    var search = document.querySelectorAll('.search-form .search')[0];
-    var previous = document.querySelectorAll('.lightbox .paging-controls .previous')[0];
-    var next = document.querySelectorAll('.lightbox .paging-controls .next')[0];
+    var edit        = document.querySelectorAll('.page-title .edit')[0],
+        searchInput = document.querySelectorAll('.search-form .search-keywords')[0],
+        search      = document.querySelectorAll('.search-form .search')[0],
+        previous    = document.querySelectorAll('.lightbox .paging-controls .previous')[0],
+        next        = document.querySelectorAll('.lightbox .paging-controls .next')[0];
 
     edit.addEventListener('click', APILightbox.showSearchForm, false);
     searchInput.addEventListener('keypress', APILightbox.checkEnter, false);
