@@ -1,12 +1,5 @@
 var APILightbox = window.APILightbox ? window.APILightbox : {};
 
-// function called by eval-ing response from Flickr
-function jsonFlickrApi(response) {
-  if(response.stat == 'ok') {
-    APILightbox.populateResults(response);
-  }
-}
-
 APILightbox = {
   flickrApiKey:      '7b491816b7ce18f1f848e52962352ee7',
   flickrRestUrlBase: 'https://www.flickr.com/services/rest/',
@@ -67,10 +60,8 @@ APILightbox = {
       var params = "?";
       for(var key in options) {
         value = options[key];
-
-        if(typeof key == "string" && typeof value == "string") {
-          params += key + "=" + value + "&";
-        }
+        value = (value + "").replace(/\s+/g, '+');
+        params += key + "=" + value + "&";
       }
       // Remove that extraneous last '&'
       params = params.replace(/&$/, '');
@@ -79,10 +70,11 @@ APILightbox = {
     },
 
     buildFlickrOptions: function(options) {
-      options         = options ? options : {};
+      options                = options ? options : {};
 
-      options.format  = 'json';
-      options.api_key = APILightbox.flickrApiKey;
+      options.format         = 'json';
+      options.api_key        = APILightbox.flickrApiKey;
+      options.nojsoncallback = 1;
 
       return options;
     },
@@ -106,7 +98,7 @@ APILightbox = {
     if(maxCount && typeof (maxCount * 1) == 'number' &&
        maxCount <= flickrMaxCountPerPage &&
        maxCount != APILightbox.maxPhotoIndex + 1) {
-      APILightbox.maxPhotoIndex = maxCount;
+      APILightbox.maxPhotoIndex = maxCount - 1;
     }
 
     if(searchText && typeof searchText == 'string') {
@@ -129,8 +121,9 @@ APILightbox = {
     url += APILightbox.utils.buildUrlParams(flickrOptions);
 
     APILightbox.utils.ajax('get', url, null, function(status, response) {
-      if(status == 200) {
-
+      response = JSON.parse(response);
+      if(status == 200 && response.stat == 'ok') {
+        APILightbox.populateResults(response);
       }
     });
   },
