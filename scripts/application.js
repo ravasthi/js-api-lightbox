@@ -130,7 +130,7 @@ APILightbox = {
 
     APILightbox.utils.ajax('get', url, null, function(status, response) {
       if(status == 200) {
-        eval(response);
+
       }
     });
   },
